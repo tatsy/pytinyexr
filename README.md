@@ -41,6 +41,17 @@ PyPI package is registered as pytinyexr: https://pypi.org/project/pytinyexr/
 $ pip install pytinyexr
 ```
 
+### For developer
+
+For each release, upload source distribution from local.
+
+```
+$ rm -rf dist && python setup.py sdist
+$ twine upload dist/*.tar.gz
+```
+
+
+
 ## Notice.
 
 Python2.7 wheel is not provided.
