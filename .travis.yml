@@ -24,7 +24,9 @@ install:
 
 script:
   # build the wheels, put them into './wheelhouse'
-  - python3 -m cibuildwheel --output-dir wheelhouse
+  - |
+    python3 -m pip install pybind11
+    python3 -m cibuildwheel --output-dir wheelhouse
 
 after_success:
   # if the release was tagged, upload them to PyPI
