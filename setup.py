@@ -1,8 +1,8 @@
 import setuptools
 import platform
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+fh = open("README.md", "r")
+long_description = fh.read()
 
 # Adapted from https://github.com/pybind/python_example/blob/master/setup.py
 class get_pybind_include(object):
@@ -44,8 +44,8 @@ class get_pybind_include(object):
         else:
             return interpreter_include_path
 
-ext_compile_args = []
-#ext_compile_args = ["-std=c++11"]
+#ext_compile_args = []
+ext_compile_args = ["-std=c++11"]
 ext_link_args = []
 
 # Developer option
