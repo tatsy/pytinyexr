@@ -25,8 +25,8 @@ env:
     # Install pybind11 also with pip for out-of-tree build
     - CIBW_BEFORE_BUILD="pip install pybind11"
 
-    # Disable python2.7 for windows
-    - CIBW_SKIP=cp27-win*
+    # Disable python2.7 build for all platforms
+    - CIBW_SKIP=cp27-*
 
     # We don't support 10.8 or ealier
     - MACOSX_DEPLOYMENT_TARGET=10.9

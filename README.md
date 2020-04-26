@@ -40,3 +40,7 @@ PyPI package is registered as pytinyexr: https://pypi.org/project/pytinyexr/
 ```
 $ pip install pytinyexr
 ```
+
+## Notice.
+
+Python2.7 wheel is not provided.
