@@ -12,13 +12,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-      run: |
-        git submodule update --init --recursive --depth 1
 
     - uses: actions/setup-python@v1
       name: Install Python
       with:
         python-version: '3.7'
+
+    - name: submodule checkout
+      run: |
+        git submodule update --init --recursive --depth 1
 
     - name: Install cibuildwheel
       run: |
