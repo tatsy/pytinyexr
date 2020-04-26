@@ -51,7 +51,7 @@ void PyEXRImage::set(int i, int channel, float value)
 #include <pybind11/pybind11.h>
 namespace py = pybind11;
 
-PYBIND11_MODULE(PyEXR, m) {
+PYBIND11_MODULE(pytinyexr, m) {
     m.doc() = "EXR image files reader";
     py::class_<PyEXRImage>(m, "PyEXRImage", py::dynamic_attr(), py::buffer_protocol())
             .def(py::init<const std::string &>())

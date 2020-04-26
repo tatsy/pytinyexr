@@ -1,4 +1,4 @@
-from PyEXR import PyEXRImage
+from pytinyexr import PyEXRImage
 
 exrImage = PyEXRImage('2by2.exr')
 
@@ -27,7 +27,7 @@ for y in range(exrImage.width):
         print(r,g,b,a)
 print ('--------------------------')
 
-# Convert to NumPy 
+# Convert to NumPy
 import numpy as np
 m = np.array(exrImage, copy = False)
 print (m)

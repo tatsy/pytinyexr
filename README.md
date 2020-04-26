@@ -8,7 +8,7 @@ It is basically a Python binding for tinyexr. Use CMake to build the module (use
 
 # Usage
 ```python
-from PyEXR import PyEXRImage
+from pytinyexr import PyEXRImage
 
 # Load an EXR image (tinyexr backend)
 img = PyEXRImage('2by2.exr')

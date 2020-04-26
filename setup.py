@@ -81,9 +81,9 @@ setuptools.setup(
     description="Python bindings for TinyEXR(OpenEXR loader/saver)",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author="Ibraheem Alhashim",
+    author="Syoyo Fujita",
     author_email="",
-    url="https://github.com/ialhashim/PyEXR",
+    url="https://github.com/syoyo/PyEXR",
     project_urls={
         "Issue Tracker": "https://github.com/ialhashim/PyEXR/issues",
     },
