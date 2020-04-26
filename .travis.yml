@@ -19,11 +19,12 @@ env:
     - TWINE_USERNAME=syoyo
     # Note: TWINE_PASSWORD is set to a PyPI API token in Travis settings
 
+    # Evaluated inside docker image(linux and macOS)
+    - CIBW_BEFORE_BUILD="git submodule update --init --recursive"
+
 install:
   - |
     python3 -m pip install cibuildwheel==1.3.0
-    python3 -m pip install pybind11
-    git submodule update --init --recursive
 
 script:
   # build the wheels, put them into './wheelhouse'
