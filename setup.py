@@ -78,14 +78,14 @@ m = setuptools.Extension(
 setuptools.setup(
     name="pytinyexr",
     version="0.9.1",
-    description="Python bindings for TinyEXR(OpenEXR loader/saver)",
+    description="Python bindings for TinyEXR (OpenEXR loader/saver)",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Syoyo Fujita",
-    author_email="",
-    url="https://github.com/syoyo/PyEXR",
+    author_email="syoyo@lighttransport.com",
+    url="https://github.com/syoyo/pytinyexr",
     project_urls={
-        "Issue Tracker": "https://github.com/syoyo/PyEXR/issues",
+        "Issue Tracker": "https://github.com/syoyo/pytinyexr/issues",
     },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
@@ -100,6 +100,7 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
     ],
     packages=setuptools.find_packages(),
+    setup_requires=['pybind11>=2.5.0'],
     ext_modules=[m],
 )
 
