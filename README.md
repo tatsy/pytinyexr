@@ -54,6 +54,13 @@ $ rm -rf dist && python setup.py sdist
 $ twine upload dist/*.tar.gz
 ```
 
+## License
+
+Even though original PyEXR has unclear license, I'd like to use MIT license for pytinyexr(only applicable to python binding codes).
+
+### Third party licenses
+
+TinyEXR is licensed under BSD license.
 
 
 ## Notice.

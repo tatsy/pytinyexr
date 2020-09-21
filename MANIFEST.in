@@ -1,0 +1,18 @@
+include LICENSE-MIT
+include CMakeLists.txt
+include *.cpp
+include *.exr
+include *.h
+include *.md
+include *.png
+include *.py
+include *.sh
+include *.yml
+
+graft pybind11
+graft tinyexr
+
+global-exclude *~
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude .git
