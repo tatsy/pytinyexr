@@ -1,5 +1,6 @@
-import setuptools
 import platform
+
+import setuptools
 
 fh = open("README.md", "r")
 long_description = fh.read()
@@ -17,6 +18,7 @@ class get_pybind_include(object):
 
     def __str__(self):
         import os
+
         import pybind11
 
         interpreter_include_path = pybind11.get_include(self.user)
@@ -52,6 +54,7 @@ ext_link_args = []
 if platform.system() == "Darwin":
    # XCode10 or later does not support libstdc++, so we need to use libc++.
    # macosx-version 10.6 does not support libc++, so we require min macosx version 10.9.
+   ext_compile_args = []
    ext_compile_args.append("-stdlib=libc++")
    ext_compile_args.append("-mmacosx-version-min=10.9")
    ext_link_args.append("-stdlib=libc++")
@@ -61,9 +64,10 @@ m = setuptools.Extension(
     "pytinyexr",
     extra_compile_args=ext_compile_args,
     extra_link_args=ext_link_args,
-    sources=["PyEXR.cpp"],
+    sources=["PyEXR.cpp", "./tinyexr/deps/miniz/miniz.c"],
     include_dirs=[
         "./tinyexr/",
+        "./tinyexr/deps/miniz/",
         # Support `build_ext` finding pybind 11 (provided it's permanently
         # installed).
         get_pybind_include(),
