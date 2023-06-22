@@ -1,107 +1,31 @@
-import setuptools
-import platform
+# -*- coding: utf-8 -*-
+from setuptools import setup
 
-fh = open("README.md", "r")
-long_description = fh.read()
+packages = \
+['tinyexr']
 
-# Adapted from https://github.com/pybind/python_example/blob/master/setup.py
-class get_pybind_include(object):
-    """Helper class to determine the pybind11 include path
-    The purpose of this class is to postpone importing pybind11
-    until it is actually installed, so that the ``get_include()``
-    method can be invoked. """
+package_data = \
+{'': ['*']}
 
-    def __init__(self, user=False, pep517=False):
-        self.user = user
-        self.pep517 = pep517
+install_requires = \
+['pybind11>=2.10.1,<3.0.0', 'setuptools>=57.4.0,<58.0.0']
 
-    def __str__(self):
-        import os
-        import pybind11
+setup_kwargs = {
+    'name': 'tinyexr',
+    'version': '0.9.1',
+    'description': 'Python binding for tinyexr',
+    'long_description': "# pytinyexr\n\n[![Build Status](https://travis-ci.org/syoyo/PyEXR.svg?branch=master)](https://travis-ci.org/syoyo/PyEXR)\n\n![screenshot](screenshot.png)\n\nLoading OpenEXR (.exr) images using Python.\n\npytinyexr is a forked version of PyEXR(https://github.com/ialhashim/PyEXR) and maintained by TinyEXR author(s).\n\nIt is basically a Python binding for tinyexr. Use CMake to build the module (uses pybind11). Installation script is not there, you can simply copy the resulting python module files. Supports loading functionality, saving can be easily added (pull requests welcome!).\n\n# Usage\n```python\nfrom pytinyexr import PyEXRImage\n\n# Load an EXR image (tinyexr backend)\nimg = PyEXRImage('2by2.exr')\n\n# Print basic details\nprint(img)\n\n# Pixel values access\nr = img.getPixel(x,y,0)\ng = img.getPixel(x,y,1)\nb = img.getPixel(x,y,2)\na = img.getPixel(x,y,3)\n\n# Numpy:\nm = np.array(img, copy = False)\n# or\nrgb = np.reshape(np.array(rgb_img, copy = False), (rgb_img.height, rgb_img.width, 4))\n# a matrix of (height x width x channels)\n\n# Display\nfrom PIL import Image\nImage.fromarray(np.clip(np.uint8(rgb*255.0), 0, 255)).show()\n```\n\n# PyPI package\n\nPyPI package is registered as pytinyexr: https://pypi.org/project/pytinyexr/\n\n```\n$ pip install pytinyexr\n```\n\n### For developer\n\nFor each release, upload source distribution from local.\n\n```\n$ rm -rf dist && python setup.py sdist\n$ twine upload dist/*.tar.gz\n```\n\n## License\n\nEven though original PyEXR has unclear license, I'd like to use MIT license for pytinyexr(only applicable to python binding codes).\n\n### Third party licenses\n\nTinyEXR is licensed under BSD license.\n\n\n## Notice.\n\nPython2.7 binary wheel is not provided.\n",
+    'author': 'Syoyo Fujita',
+    'author_email': 'syoyo@lighttransport.com',
+    'maintainer': 'None',
+    'maintainer_email': 'None',
+    'url': 'https://github.com/syoyo/pytinyexr',
+    'packages': packages,
+    'package_data': package_data,
+    'install_requires': install_requires,
+    'python_requires': '>=3.8.1,<3.11',
+}
+from build import *
+build(setup_kwargs)
 
-        interpreter_include_path = pybind11.get_include(self.user)
-
-        if self.pep517:
-            # When pybind11 is installed permanently in site packages, the headers
-            # will be in the interpreter include path above. PEP 517 provides an
-            # experimental feature for build system dependencies. When installing
-            # a package from a source distribvution, first its build dependencies
-            # are installed in a temporary location. pybind11 does not return the
-            # correct path for this condition, so we glom together a second path,
-            # and ultimately specify them _both_ in the include search path.
-            # https://github.com/pybind/pybind11/issues/1067
-            return os.path.abspath(
-                os.path.join(
-                    os.path.dirname(pybind11.__file__),
-                    "..",
-                    "..",
-                    "..",
-                    "..",
-                    "include",
-                    os.path.basename(interpreter_include_path),
-                )
-            )
-        else:
-            return interpreter_include_path
-
-#ext_compile_args = []
-ext_compile_args = ["-std=c++11"]
-ext_link_args = []
-
-# Raise macosx version.
-if platform.system() == "Darwin":
-   # XCode10 or later does not support libstdc++, so we need to use libc++.
-   # macosx-version 10.6 does not support libc++, so we require min macosx version 10.9.
-   ext_compile_args.append("-stdlib=libc++")
-   ext_compile_args.append("-mmacosx-version-min=10.9")
-   ext_link_args.append("-stdlib=libc++")
-   ext_link_args.append("-mmacosx-version-min=10.9")
-
-m = setuptools.Extension(
-    "pytinyexr",
-    extra_compile_args=ext_compile_args,
-    extra_link_args=ext_link_args,
-    sources=["PyEXR.cpp"],
-    include_dirs=[
-        "./tinyexr/",
-        # Support `build_ext` finding pybind 11 (provided it's permanently
-        # installed).
-        get_pybind_include(),
-        get_pybind_include(user=True),
-        # Support building from a source distribution finding pybind11 from
-        # a PEP 517 temporary install.
-        get_pybind_include(pep517=True),
-    ],
-    language="c++",
-)
-
-setuptools.setup(
-    name="pytinyexr",
-    version="0.9.1",
-    description="Python bindings for TinyEXR (OpenEXR loader/saver)",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    author="Syoyo Fujita",
-    author_email="syoyo@lighttransport.com",
-    url="https://github.com/syoyo/pytinyexr",
-    project_urls={
-        "Issue Tracker": "https://github.com/syoyo/pytinyexr/issues",
-    },
-    classifiers=[
-        "Development Status :: 5 - Production/Stable",
-        "Intended Audience :: Developers",
-        "Intended Audience :: Science/Research",
-        "Intended Audience :: Manufacturing",
-        "Topic :: Artistic Software",
-        "Topic :: Multimedia :: Graphics :: 3D Modeling",
-        "Topic :: Scientific/Engineering :: Visualization",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3",
-    ],
-    packages=setuptools.find_packages(),
-    setup_requires=['pybind11>=2.5.0'],
-    ext_modules=[m],
-)
-
-
+setup(**setup_kwargs)
