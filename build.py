@@ -19,7 +19,7 @@ if platform.system() == 'Windows':
     pass
 elif platform.system() == 'Darwin':
     extra_compile_args.extend([
-        '-std=c++11',
+        '-std=c++14',
         '-mmacosx-version-min=10.9',
     ])
     extra_link_args.extend([
@@ -27,7 +27,7 @@ elif platform.system() == 'Darwin':
     ])
 else:
     extra_compile_args.extend([
-        '-std=c++11',
+        '-std=c++14',
     ])
     extra_link_args.extend([])
 
