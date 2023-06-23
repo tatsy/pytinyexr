@@ -15,7 +15,10 @@ public:
 
     float getPixel(int x, int y, int channel);
     float get(int i);
-    float *data() { return out_rgba; }
+    float *data()
+    {
+        return out_rgba;
+    }
     float *channel(const std::string &name)
     {
         return reinterpret_cast<float *>(image.images[name2index[name]]);
@@ -26,13 +29,25 @@ public:
     void set(int i, int channel, float value);
     void save(const std::string &filename);
 
-    inline std::string getFilename() const { return filename; }
-    inline int getWidth() const { return width; }
-    inline int getHeight() const { return height; }
-    inline int getChannels() const { return channels; }
+    inline std::string getFilename() const
+    {
+        return filename;
+    }
+    inline int getWidth() const
+    {
+        return width;
+    }
+    inline int getHeight() const
+    {
+        return height;
+    }
+    inline int getChannels() const
+    {
+        return channels;
+    }
 
 private:
-    float *out_rgba; // width * height * RGBA
+    float *out_rgba;  // width * height * RGBA
     int width;
     int height;
     int channels;

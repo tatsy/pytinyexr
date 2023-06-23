@@ -1,9 +1,5 @@
-[build-system]
-requires = ["setuptools>=42", "poetry-core>=1.0.0", "pybind11~=2.6.1"]
-build-backend = "poetry.core.masonry.api"
-
 [tool.poetry]
-name = "pytinyexr"
+name = "tinyexr"
 version = "0.9.1"
 description = "Python binding for tinyexr"
 license = "MIT"
@@ -12,6 +8,7 @@ readme = 'README.md'
 repository = "https://github.com/syoyo/pytinyexr"
 homepage = "https://github.com/syoyo/pytinyexr"
 keywords = ['OpenEXR', 'EXR', 'HDR']
+exclude = ["tinyexr/*", "dist/*", "build/*", "data/*"]
 
 classifiers = [
   "Development Status :: 5 - Production/Stable",
@@ -26,14 +23,12 @@ classifiers = [
   "Programming Language :: Python :: 3",
 ]
 
-exclude = []
-
 [tool.poetry.build]
 script = "build.py"
 generate-setup-file = true
 
 [tool.poetry.dependencies]
-python = ">=3.9,<3.11"
+python = ">=3.8.1,<3.11"
 setuptools = "^57.4.0"
 pybind11 = "^2.10.1"
 
@@ -45,3 +40,7 @@ isort = "^5.10.1"
 pytest = "^7.2.0"
 numpy = "^1.23.5"
 matplotlib = "^3.6.2"
+
+[build-system]
+requires = ["setuptools>=42", "poetry-core>=1.0.0", "pybind11~=2.6.1"]
+build-backend = "poetry.core.masonry.api"

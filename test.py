@@ -13,30 +13,31 @@ for i in range(exrImage.width * exrImage.height):
     g = exrImage.get(4 * i + 1)
     b = exrImage.get(4 * i + 2)
     a = exrImage.get(4 * i + 3)
-    print(r,g,b,a)
-print ('--------------------------')
+    print(r, g, b, a)
+print('--------------------------')
 
 # Access by index x,y,channel
 for y in range(exrImage.width):
     for x in range(exrImage.height):
-        r = exrImage.getPixel(x,y,0)
-        g = exrImage.getPixel(x,y,1)
-        b = exrImage.getPixel(x,y,2)
-        a = exrImage.getPixel(x,y,3)
+        r = exrImage.getPixel(x, y, 0)
+        g = exrImage.getPixel(x, y, 1)
+        b = exrImage.getPixel(x, y, 2)
+        a = exrImage.getPixel(x, y, 3)
 
-        print(r,g,b,a)
-print ('--------------------------')
+        print(r, g, b, a)
+print('--------------------------')
 
 # Convert to NumPy
 import numpy as np
-m = np.array(exrImage, copy = False)
-print (m)
-print ('--------------------------')
+
+m = np.array(exrImage, copy=False)
+print(m)
+print('--------------------------')
 
 # Shape into x,y,channel matrix
 t = np.reshape(m, (exrImage.width, exrImage.height, 4))
-print (t)
-print ('--------------------------')
+print(t)
+print('--------------------------')
 
 print(t[0][0][:])
 print(t[0][1][:])

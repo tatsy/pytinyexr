@@ -1,29 +1,30 @@
 import platform
 
+from pybind11.setup_helpers import Pybind11Extension
 from setuptools.command.build_ext import build_ext
 
-from pybind11.setup_helpers import Pybind11Extension
-
 sources = [
-    'pytinyexr/PyEXR.cpp',
-    'tinyexr/deps/miniz/miniz.c',
+    'PyEXR.cpp',
 ]
+
 include_dirs = [
-    './pytinyexr/',
     './tinyexr/',
-    './tinyexr/deps/miniz',
+    './tinyexr/examples/common/',
 ]
 
 extra_compile_args = []
 extra_link_args = []
-define_macros = []
+define_macros = [('TINYEXR_USE_STB_ZLIB', 1), ('TINYEXR_USE_MINIZ', 0)]
 if platform.system() == 'Windows':
     pass
 elif platform.system() == 'Darwin':
     extra_compile_args.extend([
+        '-std=c++11',
         '-mmacosx-version-min=10.9',
     ])
-    extra_link_args.extend([])
+    extra_link_args.extend([
+        '-stdlib=libc++',
+    ])
 else:
     extra_compile_args.extend([
         '-std=c++11',
@@ -31,7 +32,7 @@ else:
     extra_link_args.extend([])
 
 ext_modules = [
-    Pybind11Extension('pytinyexr',
+    Pybind11Extension('tinyexr',
                       sources,
                       language='c++',
                       include_dirs=include_dirs,
